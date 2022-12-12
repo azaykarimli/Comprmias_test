@@ -2,10 +2,10 @@
 
 
 //randomly populated array
-$random_number_generator_for_array_pop = rand(1, 10);
+$random_number_generator_for_array_pop = rand(2, 10);
 $random_number_array = range(2, 10);
 shuffle($random_number_array);
-$random_number_array_apple = array_slice($random_number_array, 0, $random_number_generator_for_array_pop);
+$random_number_array_apple = array_slice($random_number_array, 2, $random_number_generator_for_array_pop);
 unset($random_number_array_apple[0]);
 
 //initial empty array to be filled with distrubution
