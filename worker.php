@@ -1,28 +1,20 @@
 <?php
 
 
+//randomly populated array
 $random_number_generator_for_array_pop = rand(1, 10);
 $random_number_array = range(2, 10);
 shuffle($random_number_array);
 $random_number_array_apple = array_slice($random_number_array, 0, $random_number_generator_for_array_pop);
 unset($random_number_array_apple[0]);
 
-
+//initial empty array to be filled with distrubution
 $array = new SplFixedArray($random_number_generator_for_array_pop);
 $arr = json_decode(json_encode($array), true);
 unset($arr[0]);
 
-//initial array of workers
-//$apple = ['worker_1'=>3,'worker_2'=>1,'worker_3'=>2];
-//$final_apple = ['worker_1'=>0,'worker_2'=>0,'worker_3'=>0];
 $apple = $random_number_array_apple;
 $final_apple = $arr;
-//print_r($apple);
-
-//echo(worker($apple));
-
-
-echo '-------after logic------' . "\r\n";
 
 
 //randomly get number to be distrubuted
@@ -40,6 +32,8 @@ for ($i = 1; $i <= $random_number_generator; $i++) {
 	$apple[$index]++;
 	$final_apple[$index]++;
 }
+
+
 
 echo (worker($final_apple, $apple, $random_number_array_apple));
 
