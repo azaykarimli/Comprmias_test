@@ -14,7 +14,7 @@ $arr = json_decode(json_encode($array), true);
 unset($arr[0]);
 
 $apple = $random_number_array_apple;
-$final_apple = $arr;
+$apple_counter = $arr;
 
 
 //randomly get number to be distrubuted
@@ -30,18 +30,18 @@ for ($i = 1; $i <= $random_number_generator; $i++) {
 	$index = array_search(min($apple), $apple);
 	//echo $index."\r\n";
 	$apple[$index]++;
-	$final_apple[$index]++;
+	$apple_counter[$index]++;
 }
 
 
 
-echo (worker($final_apple, $apple, $random_number_array_apple));
+echo (worker($apple_counter, $apple, $random_number_array_apple));
 
 //function that generates the initial array
-function worker(array $final_apple, array $apple, array $random_number_array): void
+function worker(array $apple_counter, array $apple, array $random_number_array): void
 {
 	for ($i = 1; $i <= count($apple); $i++) {
-		$finalmente = empty($final_apple[$i]) ? 0 : $final_apple[$i]; //if null then 0 of the how many apples does it got
+		$finalmente = empty($apple_counter[$i]) ? 0 : $apple_counter[$i]; //if null then 0 of the how many apples does it got
 		echo "Apple worker " . $i . " has " . $random_number_array[$i] . " apples to process " . "\r\n";
 		echo "Apple worker " . $i . " gets another " . $finalmente . " apples  (total: " . $apple[$i] . ")" . "\r\n";
 	}
