@@ -40,7 +40,7 @@ $fruits = [$apple, $orange, $kiwi];
 foreach ($fruits as $fruit) {
 	
 	$final_fruit = distrubuter($fruit, $random_number_generator);
-	echo 'number of apples to be distributed evenly: ' . $random_number_generator . "\r\n";
+	echo 'number of fruits to be distributed evenly: ' . $random_number_generator . "\r\n";
 	echo (worker($final_fruit));
 	echo "----------" . "\r\n";
 }
