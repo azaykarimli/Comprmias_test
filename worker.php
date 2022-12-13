@@ -2,45 +2,54 @@
 
 
 //randomly populated array
-$random_number_generator_for_array_pop = rand(2, 10);
-$random_number_array = range(2, 10);
-shuffle($random_number_array);
-$random_number_array_apple = array_slice($random_number_array, 2, $random_number_generator_for_array_pop);
+//$random_number_generator_for_array_pop = rand(2, 10);
 
-//initial empty array to be filled with distrubution
-$array = new SplFixedArray($random_number_generator_for_array_pop);
-$arr = json_decode(json_encode($array), true);
+$random_populated_arr = array_map(
+	function () {
+		return rand(2, 10);
+	},
+	array_fill(0, rand(2, 10), null)
+);
 
-$apple = $random_number_array_apple;
-$apple_counter = $arr;
+$apple = [];
+foreach ($random_populated_arr as $r_p_arr) {
 
+	$apple[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0];
+}
+
+sort($apple);
 
 //randomly get number to be distrubuted
-
 $random_number_generator = rand(1, 10);
-
 
 echo 'number of apples to be distributed evenly: ' . $random_number_generator . "\r\n";
 
-for ($i = 1; $i <= $random_number_generator; $i++) {
+while ($random_number_generator != 0) {
+	sort($apple); //sort the array each time to get second(min) and min
+	$first = $apple[0]['worker_after'];
+	$second = $apple[1]['worker_after'];
+	$gap = ($second - $first) + 1;
+	if ($random_number_generator <= $gap) {
 
-	//add one more to the minumum member of array
+		$gap = $random_number_generator;
+	}
 	$index = array_search(min($apple), $apple);
 	//echo $index."\r\n";
-	$apple[$index]++;
-	$apple_counter[$index]++;
+	$apple[$index]['worker_after'] += $gap;
+	$apple[$index]['counter'] += $gap;
+
+	$random_number_generator = $random_number_generator - $gap;
 }
 
 
-
-echo (worker($apple_counter, $apple, $random_number_array_apple));
+echo (worker($apple));
 
 //function that generates the initial array
-function worker(array $apple_counter, array $apple, array $random_number_array): void
+function worker(array $apple): void
 {
 	for ($i = 0; $i < count($apple); $i++) {
-		$finalmente = empty($apple_counter[$i]) ? 0 : $apple_counter[$i]; //if null then 0 of the how many apples does it got
-		echo "Apple worker " . $i+1 . " has " . $random_number_array[$i] . " apples to process " . "\r\n";
-		echo "Apple worker " . $i+1 . " gets another " . $finalmente . " apples  (total: " . $apple[$i] . ")" . "\r\n";
+		$finalmente = empty($apple[$i]) ? 0 : $apple[$i]['counter']; //if null then 0 of the how many apples does it got
+		echo "Apple worker " . $i + 1 . " had " . $apple[$i]['worker'] . " apples to process " . "\r\n";
+		echo "Apple worker " . $i + 1 . " gets another " . $finalmente . " apples  (total: " . $apple[$i]['worker_after'] . ")" . "\r\n";
 	}
 }
