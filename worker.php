@@ -13,17 +13,18 @@ for ($i = 0; $i < 3; $i++) {
 		array_fill(0, rand(2, 10), null)
 	);
 
-
+	$counter_worker = 0;
 	foreach ($random_populated_arr as $r_p_arr) {
+		$counter_worker++;
 		switch ($i) {
 			case 0:
-				$apple[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "type" => 'Apple'];
+				$apple[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "name" => 'worker_' . $counter_worker, "type" => 'Apple'];
 				break;
 			case 1:
-				$orange[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "type" => 'ORange'];
+				$orange[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "name" => 'worker_' . $counter_worker, "type" => 'ORange'];
 				break;
 			case 2:
-				$kiwi[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "type" => 'Kiwi'];
+				$kiwi[] = ['worker_after' => $r_p_arr, 'worker' => $r_p_arr, 'counter' => 0, "name" => 'worker_' . $counter_worker, "type" => 'Kiwi'];
 				break;
 		}
 	}
@@ -38,7 +39,6 @@ $random_number_generator = rand(1, 10);
 
 $fruits = [$apple, $orange, $kiwi];
 foreach ($fruits as $fruit) {
-	
 	$final_fruit = distrubuter($fruit, $random_number_generator);
 	echo 'number of fruits to be distributed evenly: ' . $random_number_generator . "\r\n";
 	echo (worker($final_fruit));
@@ -50,8 +50,8 @@ function worker(array $fruit): void
 {
 	for ($i = 0; $i < count($fruit); $i++) {
 		$finalmente = empty($fruit[$i]) ? 0 : $fruit[$i]['counter']; //if null then 0 of the how many apples does it got
-		echo $fruit[$i]['type']." worker " . $i + 1 . " had " . $fruit[$i]['worker'] . " apples to process " . "\r\n";
-		echo $fruit[$i]['type']." worker " . $i + 1 . " gets another " . $finalmente . " apples  (total: " . $fruit[$i]['worker_after'] . ")" . "\r\n";
+		echo $fruit[$i]['type'] . " " . $fruit[$i]['name']  . " had " . $fruit[$i]['worker'] . " apples to process " . "\r\n";
+		echo $fruit[$i]['type'] . " " . $fruit[$i]['name']  . " gets another " . $finalmente . " apples  (total: " . $fruit[$i]['worker_after'] . ")" . "\r\n";
 	}
 }
 
